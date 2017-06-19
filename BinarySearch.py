@@ -17,4 +17,4 @@ def binarySearch(element, S):
 
 
 if __name__ == '__main__':
-    print(binarySearch(0, [8,7,6,5,4,3,2,1]))
+    print(binarySearch(8, [8,7,6,5,4,3,2,1]))
