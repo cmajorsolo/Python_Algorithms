@@ -22,6 +22,11 @@ addEdge(graph,'c','a')
 addEdge(graph,'c','b')
 addEdge(graph,'e','b')
 addEdge(graph,'d','c')
+addEdge(graph,'d','a')
 addEdge(graph,'e','c')
 
-print(generate_edges(graph))
+pathCollection = generate_edges(graph)
+
+print(pathCollection)
+print(graph)
+
