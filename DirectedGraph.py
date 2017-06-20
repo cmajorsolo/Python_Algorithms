@@ -14,8 +14,15 @@ def generate_edges(graph):
     return edges
 
 addEdge(graph,'1','2')
-addEdge(graph,'2','3')
+addEdge(graph,'1','3')
+addEdge(graph,'2','4')
+addEdge(graph,'2','5')
 addEdge(graph,'3','1')
+addEdge(graph,'3','5')
+addEdge(graph,'4','2')
+addEdge(graph,'5','2')
+addEdge(graph,'5','3')
+
 
 pathCollection = generate_edges(graph)
 
@@ -24,21 +31,23 @@ print(graph)
 
 # detecting f a graph has a cycle with DFS
 def dfs(graph, start, end):
-    fringe = [(start, [])]
-    while fringe:
-        state, path = fringe.pop()
-        if path and state == end:
+    stack = [(start, [])]
+    while stack:
+        currentNode, path = stack.pop()
+        if path and currentNode == end:
             yield path
             continue
-        for next_state in graph[state]:
-            if next_state in path:
+        for next_neighbour in graph[currentNode]:
+            if next_neighbour in path:
                 continue
-            fringe.append((next_state, path+[next_state]))
+            stack.append((next_neighbour, path+[next_neighbour]))
 
 for node in graph:
     for path in dfs(graph, node, node):
         cycles = [node] + path
         print(cycles)
+
+
 
 
 
