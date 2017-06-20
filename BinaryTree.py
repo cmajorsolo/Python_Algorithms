@@ -43,6 +43,19 @@ def breathPrint(node):
         if n.right is not None:
             queue.insert(0, n.right)
 
+def depthPrint(node):
+    if node is None:
+        return
+    stack = []
+    stack.append(node)
+    while(len(stack) > 0):
+        n = stack.pop()
+        print(n.value)
+        if n.right is not None:
+            stack.append(n.right)
+        if n.left is not None:
+            stack.append(n.left)
+
 def getNumberOfNodesAtKLevel(node, k):
     if node is None or k<1:
         return 0
@@ -82,6 +95,7 @@ BST_Insertion(r, e)
 BST_Insertion(r, f)
 BST_Insertion(r, g)
 
-# printTree(r)
-# breathPrint(r)
-print(getLeafNodeNumber(r))
+#printTree(r)
+#breathPrint(r)
+depthPrint(r)
+#print(getLeafNodeNumber(r))
