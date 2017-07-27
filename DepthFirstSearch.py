@@ -1,54 +1,59 @@
-graph = {'A': set(['B', 'C']),
-         'B': set(['A', 'D', 'E']),
-         'C': set(['A', 'F']),
-         'D': set(['B']),
-         'E': set(['B', 'F']),
-         'F': set(['C', 'E'])}
-
+graph = {'A': ['B', 'C'],
+         'B': ['A', 'D', 'E'],
+         'C': ['A', 'F'],
+         'D': ['B'],
+         'E': ['B', 'F'],
+         'F': ['C', 'E']}
+################################  DFS ###########################
 def dfs(graph, start):
-    visited, stack = set(), [start]
+    visited, stack = [], [start]
     while stack:
-        vertex = stack.pop()
-        if vertex not in visited:
-            visited.add(vertex)
-            stack.extend(graph[vertex] - visited)
+        n = stack.pop()
+        if n not in visited:
+            visited.append(n)
+            newList = list(set(graph[n]) - set(visited))
+            stack  = stack + newList
     return visited
-# print(dfs(graph, 'A'))
 
+print (dfs(graph, 'A'))
+
+
+################################  DFS PRINT PATH ###########################
 def dfs_paths(graph, start, goal, path=None):
     if path is None:
         path = [start]
     if start == goal:
         yield path
-    for next in graph[start] - set(path):
+    for next in list(set(graph[start]) - set(path)):
         yield from dfs_paths(graph, next, goal, path + [next])
 
-list(dfs_paths(graph, 'C', 'F'))
+print (list(dfs_paths(graph, 'C', 'F')))
 
-
+################################  BFS ###########################
 def bfs(graph, start):
-    visited, queue = set(), [start]
+    visited, queue = [], [start]
     while queue:
-        vertex = queue.pop(0)
-        if vertex not in visited:
-            visited.add(vertex)
-            queue.extend(graph[vertex] - visited)
+        n = queue.pop(0)
+        if n not in visited:
+            visited.append(n)
+            newList= list(set(graph[n]) - set(visited))
+            queue += newList
     return visited
+print(bfs(graph, 'A'))
 
-bfs(graph, 'A')
-
+################################  DFS PRINT PATH ###########################
 def bfs_paths(graph, start, goal):
     queue = [(start, [start])]
     while queue:
-        (vertex, path) = queue.pop(0)
-        for next in graph[vertex] - set(path):
+        vertex, path = queue.pop()
+        for next in list(set(graph[vertex]) - set(path)):
             if next == goal:
                 yield path + [next]
             else:
-                queue.append((next, path + [next]))
-
+                queue.append((next, path+[next]))
 print(list(bfs_paths(graph, 'A', 'F')))
 
+################################  SHORTEST DFS PRINT PATH ###########################
 def shortest_path(graph, start, goal):
     try:
         return next(bfs_paths(graph, start, goal))
@@ -56,4 +61,3 @@ def shortest_path(graph, start, goal):
         return None
 
 shortest_path(graph, 'A', 'F')
-
