@@ -5,3 +5,5 @@ http://interactivepython.org/courselib/static/pythonds/Trees/BinaryHeapImplement
 
 Graph Code comes from
 http://www.geeksforgeeks.org/generate-graph-using-dictionary-python/
+
+Codility tests 100% performance answers are in folder: Codility100PercentPerformanceAnswers
